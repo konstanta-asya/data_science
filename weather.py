@@ -4,7 +4,6 @@ import requests
 from flask import Flask, jsonify, request
 
 API_TOKEN = ""
-
 WEATHER_API_KEY = ""
 MISTRAL_API_KEY = ""
 
@@ -118,8 +117,11 @@ def ai_recommendation_endpoint():
     weather = get_weather(region, date)
     recommendation = get_ai_recommendation(weather)
 
+    timestamp = dt.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ')
+
     return jsonify({
         "requester_name": requester_name,
+        "timestamp": timestamp,  
         "location": region,
         "date": date,
         "weather": weather,
